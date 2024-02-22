@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{a}}
+      <v-header> </v-header>
+    </div>
+  </body>
+  <template id="header">
+    <div>
+      <h2 @click="getChild">我是头部组件</h2>
+      <h3>{{name}}</h3>
+      <br />
+      <hr />
+
+      <!-- 父组件给子组件传数据 通过ref -->
+      <v-nav ref="myNav"> </v-nav>
+    </div>
+  </template>
+  <template id="nav">
+    <div>
+      <h2>我是Nav组件</h2>
+      <br>
+      <br>
+      {{msg}}
+      <button @click="getParent">获取父组件的方法和数据</button>
+    </div>
+  </template>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+
+    data: {
+      a: "aaa",
+    },
+
+    components: {
+      "v-header": {
+        template: "#header",
+        data() {
+          return {
+            msg: "我是header组件的数据",
+
+            name: "我是header组件的name",
+          };
+        },
+        components: {
+          "v-nav": {
+            template: "#nav",
+
+            methods: {
+              run() {
+                alert("这是子组件的run方法");
+              },
+              getParent(){
+                /*获取父组件的方法和数据*/
+                this.$parent.run();
+                this.msg = this.$parent.msg;
+                alert("1111213123");
+
+              }
+            },
+            data() {
+              return {
+                msg: "这是子组件的数据",
+
+                name: "这是子组件的name",
+              };
+            },
+          },
+        },
+        methods: {
+          getChild() {
+            /* 映射给 ref 标签 */
+            this.$refs.myNav.run(); //执行只组件的方法
+            this.name = this.$refs.myNav.name; //执行只组件的方法
+          },
+          run(){
+            alert("这是父组件的run方法")
+          }
+        },
+      },
+    },
+  });
+</script>

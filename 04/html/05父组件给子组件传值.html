@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> </v-header>
+    </div>
+    <template id="header">
+      <div>
+        <h2>我是header组件---{{msg}}---{{name}}</h2>
+        <br />
+        <hr />
+        <!--  父组件给子组件传数据  v-bind:k to k -->
+        <v-nav :msg="msg" :name="name"></v-nav>
+    </div>
+    </template>
+    <template id="nav">
+      <div>
+        <h2>我是Nav组件---{{msg}}---{{name}}</h2>
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  let app = new Vue({
+    el: "#app",
+    data: {
+      a: "aaa",
+    },
+    components: {
+      "v-header": {
+        template: "#header",
+        data(){
+            return{
+                msg:"我是header的msg",
+                name:"我是header组件的name",
+            }
+        },
+        components: {
+          "v-nav": {
+            props:["msg","name"],/*子组件接收数据*/
+            template: "#nav",
+          },
+        },
+      },
+    },
+  });
+</script>

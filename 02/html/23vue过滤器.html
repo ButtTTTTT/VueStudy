@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+      <br />
+      <hr />
+      {{msg | reverseMsg }}
+      <br />
+      <hr />
+      {{num | toDo(12,14)}}
+    </div>
+  </body>
+</html>
+<script>
+  window.onload = () => {
+    /*
+     * 自定义过滤器
+     * 定义过滤字体翻转
+     * 过滤器要在 vue对象之前
+     */
+    Vue.filter("reverseMsg", (val) => {
+      return val.split("").reverse().join("");
+    });
+    Vue.filter("toDo", (val, n1, n2) => {
+      return n1 > n2 ? "123" : "456";
+    });
+    var app = new Vue({
+      el: "#app",
+      data: {
+        msg: "我是代码搬砖工",
+        num: "123",
+      },
+    });
+  };
+</script>

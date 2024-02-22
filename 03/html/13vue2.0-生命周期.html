@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="button" value="更新数据" @click="update" />
+      <br>
+      <input type="button" @click="destroy" value="销毁组件">
+      {{msg}}
+    </div>
+  </body>
+</html>
+<script>
+  /*
+     vue js 生命周期函数 
+                new Vue()
+ beforeCreate
+                Observe Data
+                Init Events
+created         
+                Has"el" option？            no 
+                yes                         vm.$mount(el)is called
+                    Has"template" option?    no
+                yes 
+                    Compile template          Compile el's outerHTML as template
+                    into render function                     
+beforeMount                           
+                                    Create vm.$el and replace "el" with it
+mounted                           
+                                                                beforeUpdate
+                                                    changes
+                                    Mounted                     Virtual DOM
+                                                                re-render and patch
+                                                                            updated
+beforeDestroy          
+                            Teardown watchers,child components
+                            and event listeners
+destroyed                   
+                            Destroyed
+                                    
+    */
+  let app = new Vue({
+    el: "#app",
+    data: {
+      msg: "welcome vue2.0",
+    },
+    methods: {
+      update() {
+        this.msg = "大家好1111";
+      },
+      destroy(){
+        this.$destroy();
+      }
+    },
+    beforeCreate(){
+            console.log("模块示例刚刚预创建");
+    },
+    created(){
+            console.log("模块被创建了")
+    },
+    beforeMount(){
+            console.log("模块预挂载了")
+    },
+    beforeUpdate(){
+        console.log("数据预更新");
+    },
+    updated(){
+        console.log("数据更新完成");
+    },
+    mounted() {
+        /*请求数据放在这个里面 必须记住*/
+ 
+        /* 模块挂载 运行*/
+      console.log("模板挂载完成");
+    },
+  });
+</script>

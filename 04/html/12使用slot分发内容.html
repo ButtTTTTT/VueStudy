@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js">
+
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <aaa>
+
+            <ul slot="ul-slot">
+                <li>ul11111</li>
+                <li>ul22222</li>
+                <li>ul33333</li>
+            </ul>
+
+            <ol slot="ol-slot">
+                <li>ol11111</li>
+                <li>ol22222</li>
+                <li>ol33333</li>
+            </ol>
+
+        </aaa>
+        <br><hr>
+    </div>
+</body>
+<template id="aaa"> 
+<div>
+    <h1>这是一个aaa组件</h1>
+    <br>
+    <br>
+
+    <slot name="ul-slot">
+
+        这是默认情况下的内容
+
+    </slot>
+
+
+    <br>
+
+
+    <slot name="ol-slot">
+
+    </slot>
+    这是底部
+</div>
+</template>
+</html>
+<script>
+    const app = new Vue({
+        el:"#app",
+        data:{
+
+        },
+        components:{
+            "aaa":{
+                template:"#aaa",
+            }
+        }
+    })
+</script>

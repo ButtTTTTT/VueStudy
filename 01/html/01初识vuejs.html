@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>vuejs 使用</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 绑定数据 -->
+      {{ msg }}
+    </div>
+  </body>
+</html>
+<script>
+  //每个 Vue.js 应用都是通过构造函数 Vue
+  //创建一个 Vue 的根实例启动的：
+  var app = new Vue({
+    //选项
+    el: "#app" /* 选择元素*/,
+    data: {
+      /*定义元素*/
+      msg: "this is a msg",
+    },
+  });
+</script>

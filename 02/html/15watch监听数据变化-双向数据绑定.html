@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      a=>{{a}}
+      <br />
+      b=>{{b}}
+      <div><button @click="setData">设置b的值</button></div>
+    </div>
+  </body>
+</html>
+<script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        a: 1,
+      },
+      methods: {
+        setData: function () {
+          this.b = 14;
+        },
+      },
+      /*计算属性效率比方法高效 */
+      computed: {
+        b: {
+          get:function(){/*使用b的时候会执行 改变b的时候又会执行*/
+            return this.a +2;
+          },
+          set:function(val){/* 改变b的时候会执行 设置值*/
+              this.a = val;
+          }
+        }
+      },
+      watch: {
+        msg: function (val, _oldVal) {
+          console.log(val + "=======>" + _oldVal);
+        },
+        firstName: function (val) {
+          this.fullName = this.lastName + val;
+        },
+        lastName: function (val) {
+          this.fullName = val + "    " + this.firstName;
+        },
+      },
+    });
+</script>

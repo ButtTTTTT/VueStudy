@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> </v-header>
+    </div>
+
+    <template id="header">
+      <div>
+        <h2>我是头部组件 --- {{a}}</h2>
+        <p>{{msg}}</p>
+        <br />
+        <!-- 在子组件中接收广播 并触发方法 -->
+        <v-nav :m="msg" @to-parent="getChildData"> 
+
+        </v-nav>
+      </div>
+    </template>
+
+    <template id="nav">
+      <div>
+        <h2>我是nav组件----{{m}}</h2>
+        <br />
+        <br />
+        <button @click="send">
+          这是nav组件的button，点击给父组件header组件传值
+        </button>
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  let app = new Vue({
+    el: "#app",
+    data: {},
+    components: {
+      "v-header": {
+        template: "#header",
+        data() {
+          return {
+            msg: "这是父组件header的msg",
+            a: "",
+          };
+        },
+        methods: {
+          getChildData(data) {
+            alert(data);
+            this.a = data;
+          },
+        },
+        components: {
+          "v-nav": {
+            template: "#nav",
+            data() {
+              return {
+                msg: "这是子组件的msg",
+              };
+            },
+            props: ["m"],
+            methods: {
+              send() {
+                this.$emit("to-parent", this.msg); /*1、子组件给父组件广播数据*/
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+</script>

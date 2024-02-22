@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../js/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            <button @click="show=!show">
+                显示隐藏
+            </button>
+            <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @leave="leave"
+            >
+            <p v-if="show">
+                我是一个使用velocity运动库的元素
+
+            </p>
+        </transition>
+    </div>
+</body>
+</html>
+<script>
+
+
+
+
+    const app = new Vue({
+        el:"#app",
+        data:{
+            show:false
+        },
+        methods:{
+            beforeEnter(el){
+                console.log("BeforeEnter");
+                el.style.opacity=0;
+                el.style.transformOrigin="left"
+            }
+            ,enter(el,done){
+                Velocity(el,{
+                    opacity:1,
+                    fontSize:"28px",
+
+                },{
+                    duration:500
+                }) ;
+                Velocity(el,{
+                    
+                    fontSize:"14px",
+
+                },{
+                    complete:done
+                })
+
+            },
+            leave(el,done){ 
+                Velocity(el,{
+                    rotateZ:"50deg"
+                },{
+                    duration:500
+                }) ;
+                Velocity(el,{
+                    rotateZ:"100deg"
+                },{
+                    loop:3
+                })
+                Velocity(el,{
+                    rotateZ:"200deg"
+                },{
+                    complete:done
+                })
+            }
+        }
+
+    })
+</script>

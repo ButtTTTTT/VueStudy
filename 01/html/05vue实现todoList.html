@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/bootstrap/js/bootstrap.min.js"
+    ></script>
+    <title></title>
+    <style>
+      #demo {
+        width: 980px;
+        margin: 0 auto;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="demo">
+      <div class="form-inline">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="信息"
+          v-model="info"
+        />
+        <button type="button" class="btn btn-default" @click="addData">
+          增加+
+        </button>
+        <table class="table table-hover">
+          <tr v-for="(it , index) in list">
+            <td>{{it}}</td>
+            <td>
+              <button class="btn btn-danger" @click="delData(index)">删除</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    //每个 Vue.js 应用都是通过构造函数 Vue
+    //创建一个 Vue 的根实例启动的：
+    var app = new Vue({
+      el: "#demo" /* 选择元素*/,
+      data: {
+        info: "",
+        list: [],
+      },
+      methods: {
+        addData: function () {
+          this.list.push(this.info);
+        },
+        delData: function (index) {
+          this.list.splice(index, 1);
+        },
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.css">
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+    <style>
+        li{
+            width: 100px;
+            height: 50px;
+            margin: 0 auto;
+            background-color: red;
+            display: block;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="search" />
+      <ul>
+        <transition-group 
+        enter-active-class="zoomInLeft" 
+        leave-active-class="zoomOutRight"
+        >
+            <li v-for="(it,index) in lists" class="animated" v-if="search" :key="index">
+                {{it}}
+            </li>
+        </transition-group>
+      </ul>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+        search: "",
+      show: "",
+      list: ["apple", "banana", "orange", "pear"],
+    },
+    computed: {
+      lists:function() {
+        var arr=[];
+        this.list.forEach(function(val){
+          if (val.indexOf(this.search) != -1) {
+            arr.push(val);
+          }
+
+        }.bind(this));
+        return arr;
+      },
+    },
+  });
+</script>

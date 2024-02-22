@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(it ,index ) in list2">
+          {{index}} {{it.cate}}
+          <ol>
+            <li v-for=" car in it.car">{{car}}</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </body>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      list: ["width", "height", "border"],
+      list1: [
+        {
+          name: "张三",
+          age: "30",
+        },
+        {
+          name: "李四",
+          age: "30",
+        },
+        {
+          name: "王五",
+          age: "30",
+        },
+        {
+          name: "6666",
+          age: "30",
+        },
+        {
+          name: "张三",
+          age: "30",
+        },
+      ],
+      list2: [
+        {
+          cate: "宝马",
+          car: [
+            { title: "宝马X1" },
+            { title: "宝马X5" },
+            { title: "宝马X6" },
+            { title: "宝马X7" },
+          ],
+        },
+        {
+          cate: "长城",
+          car: [
+            { title: "长城X1" },
+            { title: "长城X5" },
+            { title: "长城X6" },
+            { title: "长城X7" },
+          ],
+        },
+        {
+          cate: "比亚迪",
+          car: [
+            { title: "比亚迪X5" },
+            { title: "比亚迪X6" },
+            { title: "比亚迪X7" },
+          ],
+        },
+      ],
+    },
+  });
+</script>

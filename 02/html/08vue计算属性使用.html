@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">
+      <input type="text" v-model="search" />{{search}}
+      <p v-for="it in lists">{{it}}</p>
+    </div>
+  </body>
+</html>
+<script>
+  window.onload = function () {
+    new Vue({
+      el: "#box",
+      data: {
+        a: 11,
+        b: this.a + 5,
+        msg: "学习前端很轻松",
+        search: "",
+        list: ["apple", "banana", "orange", "pear"],
+      },
+      computed: {
+        lists: function () {
+          //初始化数组
+          let arr = [];
+          //遍历数组  =>  查找逻辑 => 返回结果
+          this.list.forEach(
+            function (element) {
+              if (element.indexOf(this.search) != -1) {
+                arr.push(element);
+              }
+            }.bind(this)
+          );
+          return arr;
+        },
+        /*计算属性*/
+        c: function () {
+          // this.a 表示获取data上面绑定的数据
+          return this.a + 6;
+        },
+        reverse: function () {
+          return this.msg.split("").reverse().join("");
+        },
+      },
+      methods: {
+        setMsg: function () {
+          this.msg = "我是代码搬砖工";
+        },
+      },
+    });
+  };
+</script>

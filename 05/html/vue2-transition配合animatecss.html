@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+    <style>
+      p {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="button" value="点击显示隐藏" @click="show=!show" />
+
+      <transition-group
+        enter-active-class="zoomInLeft"
+        leave-active-class="zoomOutRight"
+      >
+        <p v-show="show" class="animated" :key="1">{{show}} 12312312</p>
+        <p v-show="show" class="animated" :key="2">{{show}} 12312312</p>
+      </transition-group>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      show: false,
+    },
+  });
+</script>

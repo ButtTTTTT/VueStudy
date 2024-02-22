@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+      <br />
+      <button @click="a='bb'">bbbb</button>
+      <button @click="a='aa'">aaaaa</button>
+      <br />
+      <hr />
+      <component :is="a"> </component>
+    </div>
+    <template id="aa">
+      <div>
+        <h2>这是aa组件的标题</h2>
+        <p @click="run1">这是aa组件的内容</p>
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  /**/
+  const app = new Vue({
+    el: "#app",
+
+    data: {
+      msg: "this is a Vue Application",
+      a: "aa",
+      b: "bb",
+    },
+    components: {
+      aa: {
+        template: "#aa",
+        methods: {
+          run1(){
+            alert("这是aa组件");
+          },
+        },
+      },
+      bb: {
+        template: "<div>这是bb组件</div>",
+      },
+    },
+  });
+</script>

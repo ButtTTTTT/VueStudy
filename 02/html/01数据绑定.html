@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+    <script>
+      /*
+        1、引入vue js
+        2、定义被vuejs 解析的视图
+        3、new Vue({ 实例化 vue
+            el: '#box1',
+            data:{
+                msg:"Hello Vue.js!"
+            }
+
+        })
+        数据绑定最基础的形式是文本插值，使用 {{}} 语法
+    */
+    </script>
+  </head>
+  <body>
+    <div id="box1">
+      {{msg}}-----{{name}}
+      <br />
+      <hr />
+      <span v-text="name"></span>
+      <br />
+      <hr />
+      <span v-html="s"> !!!!!!!!!!!! </span>
+      <div :id="id">这是一个id</div>
+      <img :src="url" :alt="alt">
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#box1",
+
+    data: {
+      //{{}} 大括号绑定数据
+      msg: "Hello Vue.js!",
+      //v-text 绑定文本标签
+      name: "张三",
+
+      h: "<h2>这是个h2</h2>",
+      // v-html 解析html标签
+      s: "<strong>我是Strong标签</strong>",
+      //v-id 绑定属性的值
+      id: "123",
+      
+      url:"https://www.baidu.com",
+
+      alt:"img",
+    },
+  });
+</script>

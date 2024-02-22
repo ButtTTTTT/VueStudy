@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+    <style>
+      .header {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> </v-header>
+        <br>
+        <br>
+        <br>
+        <v-footer>
+
+        </v-footer>
+
+
+      <script type="x-template" id="header">
+        <div class="header">
+        <h2>这是标题</h2>
+        <p>{{msg}}</p>
+        <button @click="run">
+          这是一个按钮
+
+        </button>
+         </div>
+      </script>
+    </div>
+    <template id="footer">
+      <div class="footer">
+      <h2>这是底部组件的标题</h2>
+      <p>{{msg}}</p>
+    </div>
+    </template>
+  </body>
+</html>
+<script>
+  //注意：模板里面所有的东西要被根元素包裹起来 不然数据无法显示
+  var Header = {
+    template: "#header",
+    data() {
+      return {
+        msg: "这是header组件的内容",
+      };
+    },
+    methods: {
+      run() {
+        this.msg = " 我是改变后的值";
+        alert("run actived");
+      },
+    },
+  };
+  let Footer = {
+    template:"#footer",
+    data(){
+      return{
+        msg :"这是底部组件的内容"
+      }
+    }
+  }
+  let app = new Vue({
+    el: "#app",
+    data: {
+      msg: "Hello Vue",
+    },
+    components: {
+      "v-header": Header,
+      "v-footer": Footer,
+    },
+  });
+</script>

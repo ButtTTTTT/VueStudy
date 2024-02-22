@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> </v-header>
+      {{name}}
+      <footer1></footer1>
+    </div>
+  </body>
+</html>
+<script>
+  /*
+   * 1、定义组件
+   * 注意 组件名称不能和html标签一致会冲突
+   */
+  let Header = Vue.extend({
+    template: "<h1>这是一个头部组件</h1>",
+  });
+  //2、注册组件
+  let Footer1 = {
+    template:"<h1>这是一个底部组件</h1>",
+  }
+  Vue.component("v-header", Header);
+  Vue.component("footer1", Footer1);
+  let app = new Vue({
+    el: "#app",
+    data: {
+      name: "",
+      age: "",
+    },
+  });
+</script>

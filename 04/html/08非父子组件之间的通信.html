@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+
+      <hr />
+      <br />
+
+      <v-a> </v-a>
+
+      <hr />
+      <br />
+
+      <v-b> </v-b>
+
+      <hr />
+      <br />
+
+      <v-c> </v-c>
+
+      <hr />
+      <br />
+    </div>
+
+    <template id="a">
+      <div>
+        A组件
+        <br />
+        <button @click="send">A组件的按钮</button>
+      </div>
+    </template>
+    <template id="b">
+      <div>
+        B组件
+        <br />
+        <button @click="send">这是B组件的按钮</button>
+      </div>
+    </template>
+    <template id="c">
+      <div>
+        C组件
+        <br />
+        m:{{m}}
+        <br>
+        
+        n:{{n}}
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  //定义一个空的实例对象
+  let Event = new Vue();
+
+  const A = {
+    template: "#a",
+
+    data() {
+      return {
+        msg: "这是A组件的消息",
+      };
+    },
+    methods: {
+      send() {
+        //发送A广播
+        Event.$emit("aSend", this.msg);
+      },
+    },
+  };
+
+  const B = {
+    template: "#b",
+
+    data() {
+      return {
+        msg: "这是B组件的消息 1111",
+      };
+    },
+    methods: {
+      send() {
+        //发送B广播
+        Event.$emit("bSend", this.msg);
+      },
+    },
+  };
+
+  const C = {
+    template: "#c",
+    data() {
+      return {
+        m: "",
+        n: "",
+      };
+    },
+    mounted() {
+      /*接收A广播*/
+      Event.$on("aSend", (msg) => {
+        this.m = msg;
+      });
+
+      /*接收B广播*/
+      Event.$on("bSend", (msg) => {
+        this.n = msg;
+      });
+    },
+  };
+
+  const app = new Vue({
+    el: "#app",
+
+    data: {
+      msg: "",
+    },
+
+    components: {
+      "v-a": A,
+
+      "v-b": B,
+
+      "v-c": C,
+    },
+  });
+</script>

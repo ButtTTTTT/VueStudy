@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <script src="../js/vue.js"></script>
+    <script src="../js/jquery-1.10.1.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <form role="form">
+        <div class="form-group">
+          <label for="username"> 用户名: </label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            placeholder="输入用户名"
+            v-model="username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="age"> 年龄: </label>
+          <input
+            type="text"
+            id="age"
+            class="form-control"
+            placeholder="输入年龄"
+            v-model="age"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="button"
+            value="添加"
+            class="btn btn-primary"
+            @click="add"
+          />
+          <input
+            type="button"
+            value="重置"
+            class="btn btn-danger"
+            @click="reset"
+          />
+        </div>
+      </form>
+      <hr />
+      <table class="table table-bordered table-hover">
+        <caption class="h3 text-info">
+          用户信息表
+        </caption>
+        <tr class="text-danger">
+          <th class="text-center">序号</th>
+          <th class="text-center">名字</th>
+          <th class="text-center">年龄</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <tr v-show="myData.length==0">
+          <td colspan="4" class="text-center text-muted">
+            <p>暂无数据...</p>
+          </td>
+        </tr>
+        <tr v-for="(it,index) in myData" :key="index">
+          <td colspan="1" class="text-center text-muted">{{index+1}}</td>
+          <td colspan="1" class="text-center text-muted">{{it.name}}</td>
+          <td colspan="1" class="text-center text-muted">{{it.age}}</td>
+          <td colspan="1" class="text-center text-muted">
+            <button
+              class="btn btn-primary btn-sm btn-danger"
+              @click="deletePrep(index)"
+            >
+              删除
+            </button>
+          </td>
+        </tr>
+      </table>
+      <div role="dialog" class="modal fade bs-example-modal-sm" id="layer">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dimiss="modal" @click="closeModal">
+                &times
+              </button>
+              <h4 class="modal-title">确认删除吗？</h4>
+            </div>
+            <div class="modal-body text-right">
+              <button
+                data-dimiss="modal"
+                class="btn btn-primary btn-sm"
+                @click="closeModal"
+              >
+                取消
+              </button>
+              <button
+                data-dimiss="modal"
+                class="btn btn-primary btn-sm"
+                @click="deleteMsg(nowIndex)"
+              >
+                删除
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      msg: "",
+      myData: [],
+      username: "123123",
+      age: "",
+      nowIndex: -100,
+    },
+    watch: {
+      myData() {
+        console.log(this.myData.length + "   " + "fdsakljfklsad");
+      },
+    },
+    methods: {
+      add() {
+        this.myData.push({
+          name: this.username,
+          age: this.age,
+        });
+        this.username = "";
+        this.age = "";
+      },
+      reset() {
+        this.myData = [];
+      },
+      deleteMsg(n) {
+        if (n == -2) {
+          this.myData = [];
+        } else {
+          this.myData.splice(n, 1);
+        }
+        $("#layer").modal("hide");
+      },
+      deletePrep(index) {
+        // 保存当前索引
+        this.nowIndex = index;
+        // 使用 jQuery 打开模态框
+        $("#layer").modal("show");
+      },
+      closeModal() {
+        $("#layer").modal("hide");
+      },
+    },
+  });
+</script>

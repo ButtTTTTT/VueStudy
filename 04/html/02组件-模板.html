@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> </v-header>
+      {{name}}
+      <v-footer> </v-footer>
+    </div>
+  </body>
+</html>
+<script>
+  /*
+   * 1、定义组件
+   * 注意 组件名称不能和html标签一致会冲突
+   */
+  /* 定义组件和注册组件放在一起*/
+  // Vue.component("v-footer", {
+  //   template: "<h1>这是一个底部组件</h1>",
+  // });
+  let Header = Vue.extend({
+    template: "<h1 @click='run'>这是一个头部组件  ----- {{name}}</h1>",
+    /* 组件注册时候添加数据 */
+    data() {
+      return {
+        name: "李四",
+      };
+    },
+    methods: {
+      run() {
+        alert("this is a component run");
+      },
+    },
+  });
+  let footer = Vue.extend({
+    template: "<h1 @click='run'>这是一个头部组件  ----- {{name}}</h1>",
+    /* 组件注册时候添加数据 */
+    data() {
+      return {
+        name: "李四",
+      };
+    },
+    methods: {
+      run() {
+        alert("this is a component run");
+      },
+    },
+  });
+  let app = new Vue({
+    el: "#app",
+    data: {
+      name: "",
+      age: "",
+    },
+    //2、注册组件
+    components: {
+      "v-header": Header,
+      "v-footer":footer,
+    },
+  });
+</script>

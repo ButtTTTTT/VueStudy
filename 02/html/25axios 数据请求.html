@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="getData()">获取数据</button>
+      <hr />
+      <br />
+
+     <ul>
+        <li v-for="it in list">
+            {{it}}
+
+        </li>
+     </ul>
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      name: "张三",
+      list: [],
+    },
+    methods: {
+      getData: function () {
+        var that = this;
+        var url = "http://127.0.0.1:3000/user/query/list";
+        /*
+         * axios 请求开始
+         */
+        axios
+          .get(url)
+          .then((res) => {
+            that.list = res.data.data;
+          })
+          .catch((e) => {
+            alert(e);
+          });
+      },
+    },
+  });
+</script>

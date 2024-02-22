@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .fade-enter-active{
+                animation: fade-enter .8s
+        }
+        .fade-enter-active{
+            animation: fade-leave 0s;
+        }
+        @keyframes fade-enter {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        @keyframes fade-leave {
+            0%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="view='aaa'">aaa 组件</button>
+      <button @click="view='bbb'">bbb 组件</button>
+
+<transition 
+name="fade" 
+
+>
+      <component :is="view"></component>
+</transition>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      view: "v-a",
+    },
+    components: {
+      aaa: {
+        template: "<div>这是aaa组件</div>",
+      },
+      bbb: {
+        template: "<div>这是bbb组件</div>",
+      },
+    },
+  });
+</script>

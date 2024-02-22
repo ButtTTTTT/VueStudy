@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{name}}
+      <div ref="oDiv" style="color:red">我是一个div元素</div>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      name: "我是name",
+    },
+    mounted(){
+        alert("你好");
+
+        this.$refs.oDiv.style.color="blue";
+        console.log(this.$refs.oDiv);
+    },
+  });
+</script>

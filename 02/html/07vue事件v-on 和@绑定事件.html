@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">
+      {{number + 101 }}
+      <br /><br />
+      {{msg.split('').reverse().join('')}}
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#box",
+    data: {
+      number: 100,
+      name: "Vue.js",
+      msg: "学习前端很轻松",
+    },
+    methods: {
+      greet: function () {
+        this.name = "欢迎欢迎";
+      },
+
+      getName: function (str) {
+        this.name = str;
+      },
+
+      requestData: function (e) {
+        console.log(e.id);
+      },
+    },
+  });
+</script>

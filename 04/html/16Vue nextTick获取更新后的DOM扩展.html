@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Vue使用nextTick获取动态dom元素</title>
+
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <div ref="oDiv">
+
+        {{message}}
+
+      </div>
+
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+        message:"张三",
+        list:[],
+
+    },
+    mounted() {
+        this.message = "改变后的数据";
+
+        console.log(this.$refs.oDiv.textContent);
+
+        this.$nextTick(()=>{
+            console.log(this.$refs.oDiv.textContent);
+        }); 
+
+    },
+  });
+</script>

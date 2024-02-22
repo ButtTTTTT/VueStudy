@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+    <style>
+      .static {
+        width: 200px;
+        height: 200px;
+      }
+      .class-a {
+        width: 200px;
+        height: 200px;
+        background: orange;
+      }
+      .class-b {
+        background: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="static" :class="{'class-a':isA, 'class-b':isB}">
+        v-bind-class11111
+      </div>
+      <div :class="classObject">classObject1111</div>
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      isA: false,
+      isB: true,
+      classObject: {
+        active: true,
+        "class-a": true,
+      },
+    },
+  });
+</script>

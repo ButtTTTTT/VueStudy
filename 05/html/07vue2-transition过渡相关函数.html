@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        background-color: red;
+      }
+
+      /* 显示 */
+
+      .fade-enter-active {
+        animation: enterActive 1s;
+      }
+      /* 隐藏 */
+      .fade-leave-active {
+        animation: leaveActive 1s;
+      }
+      @keyframes enterActive {
+        0% {
+          width: 100px;
+          height: 100px;
+          background-color: red;
+          opacity: 0;
+          transform: translate(0px, 0);
+        }
+        100% {
+          width: 100px;
+          height: 100px;
+          background-color: red;
+          opacity: 1;
+          transform: translate(1000px, 0);
+        }
+      }
+      @keyframes leaveActive {
+        0% {
+          width: 100px;
+          height: 100px;
+          background-color: red;
+          opacity: 1;
+          transform: translate(1000px, 0);
+        }
+        100% {
+          width: 100px;
+          height: 100px;
+          background-color: red;
+          opacity: 0;
+          transform: translate(0px, 0);
+        }
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+      <button @click="flag=!flag">点击显示隐藏</button>
+
+      <transition
+        name="fade"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-Enter="afterEnter"
+        @before-leave="beforeave"
+        @leave="leave"
+        @after-leave="afterLeave"
+      >
+        <div class="box" v-if="flag">这是一个div</div>
+      </transition>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      msg: "这是一个msg",
+      flag: false,
+    },
+    methods: {
+      beforeEnter() {
+        console.log("beforeEnter 动画进入之前");
+      },
+      enter() {},
+      afterEnter(ev) {
+        console.log("动画进入之后");
+
+        ev.style.background = "blue";
+      },
+      beforeave() {
+        console.log("动画leave之前");
+      },
+      leave(el) {
+        console.log("动画leave");
+      },
+      afterLeave() {
+        console.log("动画leave之后");
+      },
+    },
+  });
+</script>

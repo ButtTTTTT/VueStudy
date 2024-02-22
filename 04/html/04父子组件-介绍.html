@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header> 
+     
+      </v-header>
+
+    </div>
+    <template id="nav">
+      <div>
+        <h2>我是nav组件---{{msg}}</h2>
+      </div>
+    </template>
+    <template id="header">
+      <div>
+        <h2>我是header组件1111 -- {{msg}}</h2>
+        <br><hr>
+        <v-nav></v-nav>
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  let app = new Vue({
+    el: "#app",
+    data: {
+      a: "aaa",
+    },
+    components: {
+      "v-header": {
+        template: "#header",
+        data(){
+            return{
+                msg : "这是一个header组件的msg",
+            }
+        },
+        components: {   /* 组件里面嵌套组件 */
+          "v-nav": {
+            template: "#nav",
+          },
+        },
+      },
+    },
+  });
+</script>

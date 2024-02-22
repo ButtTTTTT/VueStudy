@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" @keydown="show" />
+      <br /><br />
+      <input type="text" @keydown="show3($event)" />
+      <br /><br />
+      <input type="text" @keyup="show4($event)" />
+    </div>
+  </body>
+</html>
+<script>
+  let app = new Vue({
+    el: "#app",
+    data: {},
+    methods: {
+      show1: (event) => {
+        console.log(event);
+        alert(1);
+        event.cancelBubble = true; /* 阻止冒泡*/
+        /* vue 阻止冒泡 click.stop*/
+      },
+      show2: () => {
+        alert(2);
+      },
+      /* 键盘事件 */
+      show: () => {
+        alert(1);
+      },
+      show3: (event) => {
+        console.log(event.keyCode);
+        if(event.keyCode == 13){
+            alert("按下了回车键");
+        }
+      },
+      show4:(event)=>{
+            console.log(event.keyCode);
+            if(event.keyCode == 13){
+                alert("回车键被弹起了");
+            }
+      }
+    },
+  });
+</script>

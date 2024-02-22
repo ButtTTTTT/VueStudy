@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1 v-if="ok">Yes</h1>
+      <h1 v-show="!ok">Hello!</h1>
+      <br />
+      <button @click="btnSetOk">设置ok值</button>
+      <hr />
+      <br />
+      <div v-if="Math.random() > 0.5">大于0.5</div>
+      <div v-else>小于0.5</div>
+    </div>
+  </body>
+</html>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      ok: true,
+    },
+    methods:{
+        btnSetOk: () => {
+        console.log("adsfasdf")
+        this.ok === true ? this.ok = !true : this.ok = true;
+      },
+    },
+    watch:{
+        ok:()=>{
+            console.log(this.ok);
+        }
+    }
+  });
+</script>

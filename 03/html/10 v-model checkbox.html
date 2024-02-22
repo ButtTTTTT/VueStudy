@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-model="msg">msg Value ===> {{msg}}</div>
+      <br /><br />
+      <!--  chcekbox 当点击时 会把value 赋值为1   由于value 绑定了 flag 所以会赋值flag为1 -->
+      <input type="checkbox" v-model="flag" />
+      <div class="box" v-if="flag">box</div>
+      <ul>
+        <li v-for="it in options">
+          {{it.text}}
+          <input
+            type="radio"
+            name="myRadio"
+            :value="it.value"
+            v-model="selected"
+          />
+        </li>
+      </ul>
+      <br>
+      <span>
+        选择的是:{{selected}}
+      </span>
+    </div>
+  </body>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+    }
+  </style>
+</html>
+<script>
+  let app = new Vue({
+    el: "#app",
+    data: {
+      msg: "this is a msg",
+      flag: false,
+      selected:"B",
+      options:[
+        {text:"One",value:"A"},
+        {text:"Two",value:"B"},
+        {text:"Three",value:"C"},
+      ],
+    },
+  });
+</script>

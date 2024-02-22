@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../js/velocity.min.js">
+<link rel="stylesheet" href="../css/animate.css">
+    <style>
+        .header span{
+            padding: 5px 10px;
+        }
+        #content{
+            width: 100%;
+            min-height: 100%;
+            background: #000;
+            opacity: 0.5;
+            filter: alpha(opacity:50);
+            position: absolute;
+            top:0px;
+            left:0px;
+        }
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .slide-enter-active{
+
+            
+
+
+        } 
+        .slide-leave-active{
+            
+        }
+        @keyframes s-enter{
+            0%{
+               transform: translate(100%,0px);
+
+            }
+            100%{
+                transform: translate(0px,0px)
+            }
+        }@keyframes s-leave{
+            0%{
+               transform: translate(0px,0px);
+
+            }
+            100%{
+                transform: translate(0,0)
+            }
+        }
+        </style>
+        <script src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <div class="button" @click="goContent()">去详情页面</div>
+        <transition name="slide">
+
+        <div id="content" v-show="isShow">
+
+          <div class="header" @click="goList()">
+
+            <span> 返回 </span>
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </transition>
+
+  </body>
+
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      isShow: false,
+    },
+    methods: {
+      goContent() {
+        this.isShow = true;
+      },
+      goList() {
+        this.isShow = false;
+      },
+    },
+  });
+</script>
