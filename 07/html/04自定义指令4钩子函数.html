@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-red="a" @click="setA">
+            asdfasdgdfag
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    const app = new Vue({
+        el:"#app",
+        data:{
+            a:"red"
+        },
+        methods:{
+            setA(){
+                this.a="blue";
+            }
+        },
+        directives:{
+           "red":{
+            bind(el,bind){
+                //bind只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作
+                console.log("bind");
+                el.style.background=bind.value;
+            },
+            inserted(){//被绑定元素插入父节点存在即可调用，不必存在于document中
+                console.log("inserted")
+            },
+            update(el,bind){//被绑定元素所在的模板更新时调用，而不论绑定值是否发生变化。通过比较更新前后的绑定值，可以忽略不记
+                console.log("update");
+                el.style.background=bind.value;
+            },
+            componentUpdated(){//被绑定元素所在模板完成一次更新周期时调用
+                console.log("componentUpdated");
+            }
+           },
+           "blue":{
+            bind(){
+                //bind只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作
+                console.log("bindbbbbb");
+            },
+            inserted(){//被绑定元素插入父节点存在即可调用，不必存在于document中
+                console.log("insertedbbbbb")
+            },
+            update(){//被绑定元素所在的模板更新时调用，而不论绑定值是否发生变化。通过比较更新前后的绑定值，可以忽略不记
+                console.log("updatebbbbb")
+            },
+            componentUpdated(){//被绑定元素所在模板完成一次更新周期时调用
+                console.log("componentUpdatedbbbbb");
+            }
+           }
+        }
+    })
+</script>

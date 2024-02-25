@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .header{
+            line-height: 4;
+            border-bottom: 1px solid #000;
+            margin-bottom: 20px;
+        }
+        .router-link-active{
+            font-size: 18px;
+            color: #f60;
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <!-- <router-link> 默认会被渲染成一个`<a>` 标签  导航-->
+        <router-link to="/home">去首页</router-link>
+        <br>
+        <router-link to="/news">去新闻</router-link>
+        <br>
+      
+      </div>
+      <router-view></router-view>
+    </div>
+
+
+    
+    <template id="news">
+        <div>
+            <div>这是一个新闻的页面---新闻列表页面</div>
+            <router-link to="/newsContent/123">去新闻详情123</router-link>
+            <router-link to="/newsContent/456">去新闻详情456</router-link>
+        </div>
+    </template>
+
+
+
+
+    <template id="newsContent">
+        <div>
+            <div>这是一个新闻的详情页面----{{$route.params.id}}</div>
+            <router-link to="/news">返回</router-link>
+        </div>
+    </template>
+
+
+
+
+  </body>
+</html>
+<script>
+  // 1、定义组件
+
+  const Home = {
+
+    template: "<div>这是一个首页的模板</div>",
+
+  };
+
+  const News = {
+
+    template: "#news",
+
+  };
+
+  const NewsContent ={
+
+    template:"#newsContent",
+
+    mounted(){
+
+        console.log(this.$route.params.id);
+
+    }
+
+  }
+  //2、配置路由 定义路由
+
+  const routes = [
+    { path: "/home", component: Home },
+    { path: "/news", component: News },
+    { path: "/newsContent/:id", component: NewsContent },
+    { path: "*", redirect:"/home" },/* 重定向到home*/
+  ];
+  //3、实例化Vue Router
+  const router = new VueRouter({//router 老老实实写这个名字
+    routes,/* VueRouter   里面属性不能变 routes*/
+  });
+  //4、VueRouter 挂载在Vue实例上面去
+  /*
+  *  
+  */
+  const app = new Vue({
+    router,
+    data: {
+        id:"",
+    },
+  }).$mount("#app");
+
+</script>

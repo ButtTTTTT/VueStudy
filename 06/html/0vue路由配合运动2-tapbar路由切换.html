@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <style>
+      html{
+        width: 100%;
+        overflow-x:hidden;
+      }
+      .header {
+        line-height: 4;
+
+        border-bottom: 1px solid #000;
+
+        margin-bottom: 20px;
+      }
+      /*从右侧向左侧划入效果*/
+      .slide-left-enter-active {
+        animation: left-enter-active 1s;
+      }
+      .slide-left-leave-active {
+        animation: left-leave-active 0s;
+      }
+      .router-link-active {
+        font-size: 18px;
+        color: #f60;
+      }
+      .fade-enter-active {
+        animation: enter-active 1s;
+      }
+      .fade-leave-active {
+        animation: leave-active 0s;
+      }
+      @keyframes left-enter-active {
+        0% {
+          transform: translate(100%, 0);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+      @keyframes left-leave-active {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(100%, 0);
+        }
+      }
+
+      /*从右侧向左侧划入效果*/
+      .slide-right-enter-active {
+        animation: right-enter-active 1s;
+      }
+
+      .slide-right-leave-active {
+        animation: right-leave-active 0s;
+      }
+
+
+      @keyframes right-enter-active {
+        0% {
+          transform: translate(100%, 0);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+
+      @keyframes right-leave-active {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(100%, 0);
+        }
+      }
+
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <router-link :to="{name:'home'}">去首页</router-link>
+        <router-link :to="{name:'news'}">去新闻</router-link>
+      </div>
+      <transition :name="transitionName">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </body>
+</html>
+<script>
+  const Home = { template: "<div>这是一个首页组件</div>" };
+  const News = { template: "<div>这是一个新闻组件</div>" };
+  const routes = [
+    {
+      path: "/home",
+      name: "home",
+      components: {
+        default: Home,
+      },
+    },
+    {
+      path: "/news",
+      name: "news",
+      components: {
+        default: News,
+      },
+    },
+    { path: "*", redirect: "/home" },
+  ];
+  const router = new VueRouter({ routes });
+  const app = new Vue({
+    router,
+    el: "#app",
+    data: {
+      transitionName: "slide-left",
+    },
+    watch: {
+      $route(to, from) {
+        /*监听路由的变化 to到哪里去 from来自哪里*/
+        console.log(to);
+        console.log(from);
+
+        const toPath = to.path.slice(1, to.path.length);
+        const fromPath = from.path.slice(1, from.path.length);
+        console.log(toPath);
+        console.log(fromPath);
+
+        if (toPath === "news") {
+          this.transitionName = "slide-left";
+        } else {
+          this.transitionName = "slide-right";
+        }
+      },
+    },
+  });
+</script>

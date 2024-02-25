@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .header {
+        line-height: 4;
+        border-bottom: 1px solid #000;
+        margin-bottom: 20px;
+      }
+      .router-link-active {
+        font-size: 18px;
+        color: #f60;
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <!-- <router-link> 默认会被渲染成一个`<a>` 标签  导航-->
+        <router-link to="/home">首页</router-link>
+        <br />
+        <router-link to="/user">用户</router-link>
+        <br />
+      </div>
+      <router-view></router-view>
+    </div>
+
+    <template id="user">
+      <div>
+        <div>
+          <h2>这是一个用户的页面---用户列表页面</h2>
+          <router-link to="/user/username">去子路由</router-link>
+          <router-link to="/user/zhangsan/age/20">张三</router-link>
+          <router-link to="/user/lisi/age/22">李四</router-link>
+          <router-link to="/user/wamgwu/age/50">王五</router-link>
+          <!-- 子路由的视图显示的地方 -->
+          <router-view> </router-view>
+        </div>
+      </div>
+    </template>
+
+    <template id="username">
+      <div>
+        <div>这是一个新闻的详情页面----{{$route.params.id}}</div>
+        <router-link to="/news">返回</router-link>
+      </div>
+    </template>
+  </body>
+</html>
+<script>
+  // 1、定义组件
+
+  const Home = {
+    template: "<div>这是一个首页的模板</div>",
+  };
+
+  const User = {
+    template: "#user",
+  };
+  const UserName = {
+    template: "<div>这是具体的用户--{{$route.params.username}}--{{$route.params.age}}</div>",
+  };
+  const NewsContent = {
+    template: "#newsContent",
+    mounted() {
+      console.log(this.$route.params.id);
+    },
+  };
+  //2、配置路由 定义路由
+
+  const routes = [
+    { path: "/home", component: Home },
+    {
+      path: "/user",
+      component: User,
+      children: [
+        //定义子路由组件
+        {
+          path: ":username/age/:age", //注意子路由不要加/
+          component: UserName,
+        },
+      ],
+    },
+    // { path: "/newsContent/:id", component: NewsContent },
+    { path: "*", redirect: "/home" } /* 重定向到home*/,
+  ];
+  //3、实例化Vue Router
+  const router = new VueRouter({
+    //router 老老实实写这个名字
+    routes /* VueRouter   里面属性不能变 routes*/,
+  });
+  //4、VueRouter 挂载在Vue实例上面去
+  /*
+   *
+   */
+  const app = new Vue({
+    router,
+    data: {
+      id: "",
+    },
+  }).$mount("#app");
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+    <style>
+
+      .header{
+          line-height: 4;
+
+          border-bottom: 1px solid #000;
+          margin-bottom: 20px;
+      }
+
+      .router-link-active{
+          font-size: 18px;
+          color: #f60;
+      }
+  </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <router-link :to="{name:'home'}">首页</router-link>
+        <router-link :to="{name:'news'}">新闻</router-link>
+      </div>
+      <router-view></router-view>
+      <router-view name="page"></router-view>
+      <router-view name="footer"></router-view>
+    </div>
+  </body>
+</html>
+<script>
+  //定义组件
+  const NewsFooter = {
+    template: "<div><h2>这是一个NewsFooter底部组件</h2></div>",
+  };
+  const HomeFooter = {
+    template: "<div><h2>这是一个HomeFooter底部组件</h2></div>",
+  };
+  const Header = { template: "<div><h2>这是一个头部组件</h2></div>" };
+  const Home = { template: "<div>这是一个首页的页面</div>" };
+  const News = { template: "<div>这是一个新闻的页面</div>" };
+//   const NewsContent = { template: "<div>这是一个新闻详情的页面</div>" };
+  //配置定义路由
+  const routes = [
+    {
+      path: "/home",
+      name: "home",
+      components: {
+        default: Header,
+        page: Home,
+        footer: HomeFooter,
+      },
+    },
+    {
+      path: "/news",
+      name: "news",
+      components: {
+        default: Header,
+        page: News,
+        footer:NewsFooter
+      },
+    },
+    // {path:'/newsContent',name:'newsContent',component:NewsContent},
+    { path: "*", redirect: "/home" } /*路由的重定向*/,
+  ];
+  //实例化 VueRouter
+  const router = new VueRouter({ routes });
+  //有时候想同时(同级)展示多个视图，而不是嵌套展示，例如创建一个布局，有sidebar(侧导航)和main(内容)两个视图，这个时候命名视图就排上用场了
+  //你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口，
+  //如果route-view没有设置名字name ， 那么默认为default
+  const app = new Vue({
+    router,
+    el: "#app",
+    data: {},
+  });
+</script>

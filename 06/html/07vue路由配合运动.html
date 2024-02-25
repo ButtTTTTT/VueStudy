@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <style>
+      .header {
+        line-height: 4;
+
+        border-bottom: 1px solid #000;
+
+        margin-bottom: 20px;
+      }
+
+      .router-link-active {
+        font-size: 18px;
+        color: #f60;
+      }
+      .fade-enter-active {
+        animation: enter-active 1s;
+      }
+      .fade-leave-active {
+        animation: leave-active 0s;
+      }
+      @keyframes enter-active {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes leave-active {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <router-link :to="{name:'home'}">去首页</router-link>
+        <router-link :to="{name:'news'}">去新闻</router-link>
+      </div>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </body>
+  
+</html>
+<script>
+    const Home = {template:"<div>这是一个首页组件</div>"};
+    const News = {template:"<div>这是一个新闻组件</div>"};
+    const routes = [
+        {
+            path:"/home",
+            name:"home",
+            components:{
+                default:Home
+            }
+        },
+        {
+            path:"/news",
+            name:"news",
+            components:{
+                default:News
+            }
+        },
+        {path:"*",redirect:"/home"}
+    ]
+    const router = new VueRouter({routes});
+  const app = new Vue({
+    router,
+    el: "#app",
+    data: {
+
+    },
+  });
+</script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .router-link-active{
+            font-size: 20px;
+            color: #f60;
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{aid}}
+        <div class="header">
+            <router-link :to="{name:'home'}">去首页</router-link>
+            <br>
+            <router-link :to="{name:'news'}">去新闻</router-link>
+            <br>
+            <router-link :to="{name:'newsContent',params:{aid:aid}}">去新闻详情页123</router-link>
+            <br>
+            <!-- <a href="#/newsContent/{{aid}}">去详情2</a> 有问题 -->
+            <hr>
+        </div>
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+<script>
+    const Home = {
+        template:"<div>这是一个首页的页面</div>"
+    }
+    const News = {
+        template:"<div>这是一个新闻的页面</div>"
+    }
+    const NewsContent = {
+        template:"<div>这是一个新闻的详情页面==>{{$route.params}}</div>"
+    }
+
+    const routes=[
+        {path:"/home",name:"home",component:Home},
+        {path:"/news",name:"news",component:News},
+        {path:"/newsContent/:aid",name:"newsContent",component:NewsContent},
+        {path:"*",redirect:"/news"},/*路由的重定向*/
+    ]
+    const router = new VueRouter({
+        routes
+    })
+    const app = new Vue({
+        router,
+        el:"#app",
+        data:{
+            aid:12345
+        }
+    })
+</script>

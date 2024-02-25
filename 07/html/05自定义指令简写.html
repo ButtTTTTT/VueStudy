@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-color="color" @click="setColor">
+            这是一个div111
+        </div>
+        <div v-color="bgcolor" @click="setBgColor">这是一个div22222</div>
+    </div>
+</body>
+</html>
+<script>
+    Vue.directive("bgcolor",{
+        bgcolor(el,bind){
+            el.style.background = bind.value;
+        }
+    })
+    const app = new Vue({
+        el:"#app",
+        data:{
+            color:"orange",
+            bgcolor:"pink",
+        },
+        methods:{
+            setColor(){
+                this.color='blue';
+            },
+            setBgColor(){
+                this.bgcolor='green';
+            }
+        },
+        directives:{
+            //简写表示bind 和update的时候都会执行
+            'color'(el,bind){
+                el.style.color=bind.value;
+            },
+            // 'bgcolor'(el,bind){
+            //     el.style.color=bind.value;
+            // }
+        }
+    })
+</script>

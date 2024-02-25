@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      button {
+        display: inline-block;
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <script src="../js/vuex.js"></script>
+    <title>你好VueX</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-header></v-header>
+      <p>{{count}}</p>
+      <button @click="inc">+</button>
+      <button @click="dec">-</button>
+      <br />
+      <v-footer></v-footer>
+    </div>
+  </body>
+</html>
+<script>
+  //1、定义状态 实例化Vuex.store
+  /**
+   * Vuex 是一个专为Vue.js设计的状态管理模式
+   * Vuex 解决了组件之间同一状态的共享问题。
+   */
+  const store = new Vuex.Store({
+    state: {
+      count: 0, //定义数据 共享的数据
+    },
+    mutations: {
+      //可以改变 vuex state的数据 用法类似methods
+      incState(state) {
+        state.count++;
+      },
+      decState(state) {
+        state.count--;
+      },
+    },
+  });
+  //定义头部组件
+  const Header = {
+    template: "<div>这是一个头部组件{{count}}</div>",
+    computed: {
+      count() {
+        return store.state.count;
+      },
+    },
+  };
+  const Footer = {
+    template: "<div>这是一个底部组件{{count}}</div>",
+    computed: {
+      count() {
+        return store.state.count;
+      },
+    },
+  };
+  const app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        count: 0,
+      };
+    },
+    computed: {
+      count() {
+        return store.state.count; //
+      },
+    },
+    methods: {
+      inc() {
+        store.commit("incState"); //间接执行 Vuex.store里面的方法 改变共享状态 state
+      },
+      dec() {
+        store.commit("decState"); //间接执行 Vuex.store里面的方法 改变共享状态 state
+      },
+    },
+    components: {
+      "v-header": Header,
+      "v-footer": Footer,
+    },
+  });
+</script>

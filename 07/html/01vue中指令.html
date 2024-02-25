@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .box1{
+
+            background-color: red;
+
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 使用指令 -->
+      <input type="text" v-focus>
+      <br>
+      <div v-red>这是一个div111</div>
+      <br>
+      <div v-color="color">这是一个div111</div>
+
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  // /*定义指令*/
+  // Vue.directive('focus',{
+  //   bind(el){/*这个元素插入父元素的时候执行*/
+     
+  //   },
+  //   inserted(el){
+  //     el.focus();
+  //   },
+
+  // });
+  const app = new Vue({
+    el: "#app",
+    data: {
+        flag:true,
+        color:"orange"
+    },
+    directives:{
+      'focus':{
+          inserted(el){
+
+            el.focus();
+
+          }
+      },
+      'red':{
+        inserted(el){
+          el.focus();
+          console.log(el);
+          el.style.background="red";
+        }
+      }
+      ,'color':{
+        /*指令里面传值*/
+        inserted(el,bind){
+          el.style.background=bind.value;
+          console.log(bind);
+        }
+      }
+    }
+  });
+</script>

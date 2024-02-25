@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        background: red;
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background: blue;
+      }
+    </style>
+    <script src="../js/vue.js"></script>
+    <script src="../js/router.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-drag class="box"></div>
+      <div class="box2" v-drag>这是box2</div>
+    </div>
+  </body>
+</html>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {},
+    directives: {
+      drag(el, bind) {
+        const oDiv = el;
+        oDiv.onmousedown = (ev) => {
+          console.log(ev);
+          const clientX = ev.clientX;
+          const clientY = ev.clientY;
+
+          const offsetLeft = oDiv.offsetLeft;
+          const offsetTop = oDiv.offsetTop;
+
+          const difX = clientX - offsetLeft;
+          const difY = clientY - offsetTop;
+
+          console.log(difX);
+          console.log(difY);
+
+          document.onmousemove = (el) => {
+            el.preventDefault();
+            const left = el.clientX - difX;
+            const top = el.clientY - difY;
+
+            oDiv.style.left = left + "px";
+            oDiv.style.top = top + "px";
+          };
+          document.onmouseup = (el) => {
+            document.onmousemove = null ; 
+            document.onmouseup = null ; 
+          };
+        };
+      },
+    },
+  });
+</script>

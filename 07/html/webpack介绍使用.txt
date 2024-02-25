@@ -1,0 +1,9 @@
+http://webpackdoc.com/
+1、安装 webpack
+
+npm install webpack -g  / cnpm
+
+2、安装cnpm 淘宝镜像
+百度搜索 cnpm
+
+npm install -g cnpm --registry=https://registry.npm.taobao.orgwe
